@@ -4,10 +4,13 @@
 MyComponent::MyComponent(void) : Base(),
 	localPoseControlledLoop(),
 	localPoseDefaultLoop(),
-	reportLocalPose()
+	reportLocalPose(),
+	velocityStateDefaultLoop(),
+	reportVelocityState()
 {
 	name = "igvc";
 	addLocalPoseService();
+	addVelocityStateService();
 }
 
 void MyComponent::addLocalPoseService()
@@ -35,6 +38,26 @@ void MyComponent::addLocalPoseService()
 	publish(&reportLocalPose);
 }
 
+void MyComponent::addVelocityStateService()
+{
+	model::Service *velocityStateSensorService = new model::Service();
+	velocityStateSensorService->setName("VelocityStateSensor");
+	velocityStateSensorService->setUri("urn:jaus:jss:mobility:VelocityStateSensor");
+	velocityStateSensorService->setVersionMajor(1);
+	velocityStateSensorService->setVersionMinor(0);
+	this->implements->push_back(velocityStateSensorService);
+	
+	
+
+	velocityStateDefaultLoop.setInterface(this);
+	velocityStateDefaultLoop.setTransportInterface(this);
+	receive.addDefaultStateTransition(velocityStateDefaultLoop);
+	
+	this->reportVelocityState.setVelocityX_mps(1.5);
+	this->reportVelocityState.setYawRate_rps(0.2);
+
+	publish(&reportVelocityState);
+}
 
 MyComponent::~MyComponent(void)
 {

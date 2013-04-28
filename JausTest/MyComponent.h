@@ -2,18 +2,21 @@
 #include "openjaus\core\Base.h"
 #include "openjaus.h"
 #include "openjaus/mobility.h"
+#include "openjaus\mobility\LocalPoseSensor.h"
+#include "openjaus\mobility\VelocityStateSensor.h"
 
 using namespace openjaus;
 using namespace mobility;
 
 class MyComponent :
 	public core::Base, 
-	public mobility::LocalPoseSensorInterface
+	public mobility::LocalPoseSensorInterface,
+	public mobility::VelocityStateSensorInterface
 {
 public:
 	// Report Messages
 	ReportLocalPose reportLocalPose;
-
+	ReportVelocityState reportVelocityState;
 	// Methods
 
 	MyComponent(void);
@@ -38,15 +41,17 @@ public:
 	/// \return Whether the condition is true. 
 	bool isControllingLposClient(SetLocalPose *setLocalPose);
 
+	ReportVelocityState getReportVelocityState(QueryVelocityState *queryVelocityState);
 
 protected:
 	LocalPoseDefaultLoop localPoseDefaultLoop;
 	LocalPoseControlledLoop localPoseControlledLoop;
 
-	
+	VelocityStateDefaultLoop velocityStateDefaultLoop;
 
 
 private:
 	void addLocalPoseService();
+	void addVelocityStateService();
 };
 
