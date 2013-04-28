@@ -29,8 +29,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	openjaus::system::Application::setTerminalMode();
 
 	MyComponent component;
-	//component.addMessageCallback(&processSetLocalPose);
-
+	//removed in test
 	component.run();
 	printMenu();
 
