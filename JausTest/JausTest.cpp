@@ -18,29 +18,11 @@ void printMenu()
 	std::cout << "t - Print System Tree" << std::endl;
 	std::cout << "1 - Control Status" << std::endl;
 	std::cout << "2 - Print ReportLocalPose" << std::endl;
-	/*std::cout << "3 - Find LocalPoseSensor" << std::endl;
-	std::cout << "4 - Query Local Pose" << std::endl;
-	std::cout << "5 - Find VelocitySensor" << std::endl;
-	std::cout << "6 - Query Velocity State" << std::endl;
-	std::cout << "7 - Query Services" << std::endl;*/
-	/*std::cout << "4 - Create Periodic Event (Report GPOS)" << std::endl;
-	std::cout << "5 - Stop Periodic Event (Report GPOS)" << std::endl;
-	std::cout << "6 - Request GPOS Control" << std::endl;
-	std::cout << "7 - Release GPOS Control" << std::endl;
-	std::cout << "8 - Set Global Pose" << std::endl;*/
+	std::cout << "3 - Print ReportVelocityState" << std::endl;
+	
 	std::cout << "? - Output Menu" << std::endl;
 	std::cout << "ESC - Exit Component" << std::endl;
 }
-
-bool processSetLocalPose(mobility::SetLocalPose &message)
-{
-	cout << "x: " << message.getX_m() << "\n";
-	cout << "id: " << message.getId() << "\n";
-	cout << "name: " << message.getName() << "\n";
-	cout << "MId: " << message.getMessageID() << "\n";
-	return true;
-}
-
 
 int _tmain(int argc, _TCHAR* argv[])
 {
@@ -73,10 +55,16 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		case '2':
 			printf("ReportLocalPose:\tX: %f\tY: %f\tYaw: %f\n", 
-				component.reportLocalPose.getX_m(),
-				component.reportLocalPose.getY_m(),
-				component.reportLocalPose.getYaw_rad());
+			component.reportLocalPose.getX_m(),
+			component.reportLocalPose.getY_m(),
+			component.reportLocalPose.getYaw_rad());
+			break;
 
+		case '3':
+			printf("ReportVelocityState:\tVel_X: %f\tYaw_rate: %f\n", 
+				component.reportVelocityState.getVelocityX_mps(),
+				component.reportVelocityState.getYawRate_rps());
+			break;
 		}
 
 	}
