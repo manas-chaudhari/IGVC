@@ -15,7 +15,6 @@ MyComponent::MyComponent(void) : Base(),
 
 void MyComponent::addLocalPoseService()
 {
-	
 	model::Service *localPoseSensorService = new model::Service();
 	localPoseSensorService->setName("LocalPoseSensor");
 	localPoseSensorService->setUri("urn:jaus:jss:mobility:LocalPoseSensor");
@@ -47,8 +46,6 @@ void MyComponent::addVelocityStateService()
 	velocityStateSensorService->setVersionMinor(0);
 	this->implements->push_back(velocityStateSensorService);
 	
-	
-
 	velocityStateDefaultLoop.setInterface(this);
 	velocityStateDefaultLoop.setTransportInterface(this);
 	receive.addDefaultStateTransition(velocityStateDefaultLoop);
