@@ -11,7 +11,7 @@ void printMenu()
 	std::cout << "Menu:" << std::endl;
 	std::cout << "1 - Number of Messages in queue" << std::endl;
 	std::cout << "2 - Simulate Message" << std::endl;
-	std::cout << "3 - Update Local Pose (50, 10, 1.2)" << std::endl;
+	std::cout << "3 - Update Local Pose (50, 10, 1.2), VelocityState(4, 0.6)" << std::endl;
 	std::cout << "4 - Read Message" << std::endl;
 }
 
@@ -36,11 +36,12 @@ int _tmain(int argc, _TCHAR* argv[])
 			break;
 			
 		case '2':
-			simulate_message_received();
+			//simulate_message_received();
 			break;
 
 		case '3':
 			updateLocalPose(50, 10, 1.2);
+			updateVelocityState(4, 0.6);
 			break;
 
 		case '4':
