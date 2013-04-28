@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MyComponent.h"
 
 ReportLocalPose MyComponent::getReportLocalPose(QueryLocalPose *queryLocalPose)

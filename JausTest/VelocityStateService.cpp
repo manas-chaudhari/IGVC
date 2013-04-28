@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MyComponent.h"
 
 ReportVelocityState MyComponent::getReportVelocityState(QueryVelocityState *queryVelocityState)

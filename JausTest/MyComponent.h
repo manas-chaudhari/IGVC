@@ -1,4 +1,4 @@
-#pragma once
+#include "stdafx.h"
 #include "openjaus\core\Base.h"
 #include "openjaus.h"
 #include "openjaus/mobility.h"
@@ -32,7 +32,7 @@ public:
 	/// UpdateLocalPose action with input SetLocalPose.
 	/// \param[in]  setLocalPose - Input Trigger.
 	/// \return Whether the message was properly processed by this action. 
-    bool updateLocalPose(SetLocalPose *setLocalPose);
+    virtual bool updateLocalPose(SetLocalPose *setLocalPose);
 
 
 	/// \brief isControllingLposClient condition.

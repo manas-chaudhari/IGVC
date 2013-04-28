@@ -1,5 +1,5 @@
+#include "stdafx.h"
 #include "MyComponent.h"
-
 
 MyComponent::MyComponent(void) : Base(),
 	localPoseControlledLoop(),
