@@ -14,12 +14,18 @@ class MyComponent :
 	public mobility::VelocityStateSensorInterface
 {
 public:
+	bool copDiscovered;
+	transport::Address COP_Address;
+	openjaus::system::Timer *pingTimer;
+	void log(const char *fmt, ...); 
+
 	// Report Messages
 	ReportLocalPose reportLocalPose;
 	ReportVelocityState reportVelocityState;
 	// Methods
 
-	MyComponent(void);
+	MyComponent();
+	MyComponent(uint16_t subsystem, unsigned char node, unsigned char component);
 	virtual ~MyComponent(void);
 
 	/// \brief Send action for ReportLocalPose with input message QueryLocalPose.
@@ -43,15 +49,22 @@ public:
 
 	ReportVelocityState getReportVelocityState(QueryVelocityState *queryVelocityState);
 
+	void run();
+	
+	bool processReportIdentification(core::ReportIdentification &reportIdentification);	
+
 protected:
 	LocalPoseDefaultLoop localPoseDefaultLoop;
 	LocalPoseControlledLoop localPoseControlledLoop;
 
 	VelocityStateDefaultLoop velocityStateDefaultLoop;
 
-
 private:
+	void sendQueryIdentification(openjaus::system::Timer *timer);
 	void addLocalPoseService();
 	void addVelocityStateService();
+	void setupDiscovery();
+	void startDiscovery();
+
 };
 

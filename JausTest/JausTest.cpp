@@ -12,6 +12,9 @@ using namespace openjaus;
 using namespace std;
 using namespace mobility;
 
+
+MyComponent component(1, 1, 2);
+
 void printMenu()
 {
 	std::cout << "Menu:" << std::endl;
@@ -27,9 +30,7 @@ void printMenu()
 int _tmain(int argc, _TCHAR* argv[])
 {
 	openjaus::system::Application::setTerminalMode();
-
-	MyComponent component;
-	//removed in test
+	
 	component.run();
 	printMenu();
 

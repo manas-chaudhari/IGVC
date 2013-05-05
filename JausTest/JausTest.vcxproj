@@ -87,6 +87,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Discovery.cpp" />
     <ClCompile Include="JausTest.cpp" />
     <ClCompile Include="LocalPoseSensorService.cpp" />
     <ClCompile Include="MyComponent.cpp" />

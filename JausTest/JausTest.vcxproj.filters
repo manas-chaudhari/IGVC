@@ -35,13 +35,16 @@
     <ClCompile Include="JausTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MyComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="LocalPoseSensorService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VelocityStateService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyComponent.cpp">
+    <ClCompile Include="Discovery.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

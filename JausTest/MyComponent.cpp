@@ -1,16 +1,38 @@
 #include "stdafx.h"
 #include "MyComponent.h"
 
+bool test(openjaus::core::ReportIdentification &ReportIdentification)
+{
+	return true;
+}
+
 MyComponent::MyComponent(void) : Base(),
 	localPoseControlledLoop(),
 	localPoseDefaultLoop(),
 	reportLocalPose(),
 	velocityStateDefaultLoop(),
-	reportVelocityState()
+	reportVelocityState(),
+	pingTimer(NULL)
 {
 	name = "igvc";
 	addLocalPoseService();
 	addVelocityStateService();
+}
+
+MyComponent::MyComponent(uint16_t subsystem, unsigned char node, unsigned char component) : Base(),
+	localPoseControlledLoop(),
+	localPoseDefaultLoop(),
+	reportLocalPose(),
+	velocityStateDefaultLoop(),
+	reportVelocityState(),
+	pingTimer(NULL)
+{
+	name = "igvc";
+	COP_Address = transport::Address(subsystem, node, component);
+	
+	addLocalPoseService();
+	addVelocityStateService();
+	setupDiscovery();
 }
 
 void MyComponent::addLocalPoseService()
@@ -58,4 +80,23 @@ void MyComponent::addVelocityStateService()
 
 MyComponent::~MyComponent(void)
 {
+	if(pingTimer)
+	{
+		delete pingTimer;
+	}
+}
+
+void MyComponent::run()
+{
+	Base::run();
+	startDiscovery();
+}
+
+void MyComponent::log(const char *fmt, ...)
+{
+	va_list arg;
+	va_start(arg, fmt);
+	printf(fmt, arg);
+	va_end(arg);
+	printf("\n");
 }

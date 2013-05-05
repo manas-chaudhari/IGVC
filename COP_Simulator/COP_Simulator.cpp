@@ -7,7 +7,17 @@
 #include <openjaus\core\Base.h>
 #include <openjaus/mobility.h>
 
+#define DEBUG 1
+#define APPLICATION_DISCOVERY 1
+
 using namespace openjaus;
+
+core::Base component;
+int nQueryIdentification = 0;
+transport::Address machineAddress;
+
+void runTest();
+void startCommandLine(transport::Address destinationAddress);
 
 bool processReportLocalPose(mobility::ReportLocalPose &reportLocalPose)
 {
@@ -36,6 +46,23 @@ void processControlResponse(const model::ControlResponse& response)
 {
 	std::cout << "Recv Control Request Response from: " << response.getAddress() << std::endl;
 	std::cout << "Response code: " << response.getResponseType() << std::endl;
+}
+
+bool processQueryIdentification(core::QueryIdentification &queryIdentification)
+{
+	printf("Recv QueryIdentification count: %d\n", nQueryIdentification);
+	machineAddress = queryIdentification.getSource();
+	
+	if (nQueryIdentification >= 5)
+	{
+		core::ReportIdentification *reportIdentification = new core::ReportIdentification();
+		reportIdentification->setDestination(machineAddress);
+		component.sendMessage(reportIdentification);
+		printf("ReportIdentification sent");
+	}
+	
+	nQueryIdentification++;
+	return true;
 }
 
 void printMenu()
@@ -67,18 +94,18 @@ transport::Address readDestinationAddress()
 	return transport::Address(_subsystem, _node, _component);
 }
 
-core::Base component;
-
 int _tmain(int argc, _TCHAR* argv[])
 {
 	openjaus::system::Application::setTerminalMode();
 	Sleep(5000);
-	transport::Address destinationAddress;// = readDestinationAddress();
+	transport::Address destinationAddress(1,1,1);// = readDestinationAddress();
 	std::vector<transport::Address> componentList;
 
 	component.setName("COP");
 	component.addMessageCallback(processReportLocalPose);
 	component.addMessageCallback(processReportVelocityState);
+
+	component.addMessageCallback(processQueryIdentification);
 
 	//component.addMessageCallback(processReportServices);
 	//component.addMessageCallback(processReportIdentification);
@@ -86,6 +113,15 @@ int _tmain(int argc, _TCHAR* argv[])
 	component.run();
 	
 	Sleep(1000);
+#if DEBUG
+
+#if APPLICATION_DISCOVERY
+	while (nQueryIdentification < 6)
+	{
+		
+	}
+	startCommandLine(machineAddress);
+#else
 	componentList = component.getSystemTree()->lookupService("urn:jaus:jss:mobility:LocalPoseSensor");
 
 	if (componentList.size() > 0)
@@ -93,7 +129,22 @@ int _tmain(int argc, _TCHAR* argv[])
 	else
 		destinationAddress = readDestinationAddress();
 
+	startCommandLine(destinationAddress);
 
+#endif
+#else
+	
+	runTest();
+	
+#endif
+	//component.stop();
+
+	return 0;
+}
+
+void startCommandLine(transport::Address destinationAddress)
+{
+	std::vector<transport::Address> componentList;
 	
 	printMenu();
 
@@ -205,6 +256,10 @@ int _tmain(int argc, _TCHAR* argv[])
 			break;
 		}
 	}
-	//component.stop();
-	return 0;
+}
+
+void runTest()
+{
+
+
 }
