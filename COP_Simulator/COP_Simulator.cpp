@@ -65,6 +65,27 @@ bool processQueryIdentification(core::QueryIdentification &queryIdentification)
 	return true;
 }
 
+bool processReportServices(core::ReportServices &reportServices)
+{
+	core::ServicesNodeList nodeList = reportServices.getRSNodeList();
+	core::ServicesComponentList cmpList = nodeList.get(0).getServicesComponentList();
+	for(size_t i = 0; i < cmpList.size(); i++)
+	{
+		core::ServicesComponentRecord cmp = cmpList.get(i);
+		if (cmp.getComponentID() == machineAddress.getComponent())
+		{
+			core::ServicesServiceList services = cmp.getServicesServiceList();
+			std::cout << "Service list:\n\n";
+			for (size_t j = 0; j < services.size(); j++)
+				std::cout << services.get(j).getUri() << std::endl;
+
+			break;
+		}
+	}
+	return false;
+}
+
+
 void printMenu()
 {
 	std::cout << "Menu:" << std::endl;
@@ -77,11 +98,8 @@ void printMenu()
 	std::cout << "6 - Set Local Pose" << std::endl;
 	std::cout << "7 - Find VelocitySensor" << std::endl;
 	std::cout << "8 - Query Velocity State" << std::endl;
-	/*std::cout << "4 - Create Periodic Event (Report GPOS)" << std::endl;
-	std::cout << "5 - Stop Periodic Event (Report GPOS)" << std::endl;
-	std::cout << "6 - Request GPOS Control" << std::endl;
-	std::cout << "7 - Release GPOS Control" << std::endl;
-	std::cout << "8 - Set Global Pose" << std::endl;*/
+	std::cout << "9 - Query Services" << std::endl;
+
 	std::cout << "? - Output Menu" << std::endl;
 	std::cout << "ESC - Exit Component" << std::endl;
 }
@@ -107,7 +125,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 	component.addMessageCallback(processQueryIdentification);
 
-	//component.addMessageCallback(processReportServices);
+	component.addMessageCallback(processReportServices);
 	//component.addMessageCallback(processReportIdentification);
 	//component.addMessageCallback(processQueryIdentification);
 	component.run();
@@ -254,6 +272,17 @@ void startCommandLine(transport::Address destinationAddress)
 				component.sendMessage(query);
 			}
 			break;
+
+		case '9':
+			std::cout << "Sending QueryServices" << std::endl;
+			{
+				core::QueryServices *query = new core::QueryServices();
+
+				query->setDestination(destinationAddress);
+				component.sendMessage(query);
+			}
+			break;
+
 		}
 	}
 }
