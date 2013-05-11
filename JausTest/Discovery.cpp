@@ -23,7 +23,7 @@ void MyComponent::startDiscovery()
 	copDiscovered = false;
 	
 	pingTimer = new openjaus::system::Timer(TIMER_METHOD(MyComponent, sendQueryIdentification), this);
-	pingTimer->setInterval(5000);
+	pingTimer->setInterval(1000);
 
 }
 

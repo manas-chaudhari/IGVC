@@ -9,7 +9,7 @@
 
 #define DEBUG 1
 #define APPLICATION_DISCOVERY 1
-
+#define DELAY 0
 using namespace openjaus;
 
 core::Base component;
@@ -53,7 +53,7 @@ bool processQueryIdentification(core::QueryIdentification &queryIdentification)
 	printf("Recv QueryIdentification count: %d\n", nQueryIdentification);
 	machineAddress = queryIdentification.getSource();
 	
-	if (nQueryIdentification >= 5)
+	if (nQueryIdentification >= DELAY)
 	{
 		core::ReportIdentification *reportIdentification = new core::ReportIdentification();
 		reportIdentification->setDestination(machineAddress);
@@ -116,7 +116,7 @@ int _tmain(int argc, _TCHAR* argv[])
 #if DEBUG
 
 #if APPLICATION_DISCOVERY
-	while (nQueryIdentification < 6)
+	while (nQueryIdentification < DELAY + 1)
 	{
 		
 	}

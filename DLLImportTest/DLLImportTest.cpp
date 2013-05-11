@@ -17,7 +17,7 @@ void printMenu()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	init();
+	init(1,1,2);
 
 	printMenu();
 

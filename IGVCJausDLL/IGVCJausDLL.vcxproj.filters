@@ -53,5 +53,8 @@
     <ClCompile Include="..\JausTest\VelocityStateService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\JausTest\Discovery.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

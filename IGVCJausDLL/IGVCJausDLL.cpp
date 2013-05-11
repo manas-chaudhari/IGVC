@@ -21,8 +21,8 @@ class IGVC_Component : public MyComponent
 public:
 	vector<model::Message*> messages;
 
-	IGVC_Component():
-		MyComponent()
+	IGVC_Component(uint16_t subsystem, unsigned char node, unsigned char component):
+		MyComponent(subsystem, node, component)
 	{
 	}
 
@@ -36,12 +36,12 @@ public:
 
 IGVC_Component *component;
 
-int init()
+int init(int subsystem, int node, int component)
 {
 	//core::Base component;
-	component = new IGVC_Component();
+	::component = new IGVC_Component(subsystem, node, component);
 	
-	component->run();
+	::component->run();
 
 	return 0;
 }

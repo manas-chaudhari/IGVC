@@ -58,6 +58,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <OutputFile>..\bin\IGVCJausDLL.dll</OutputFile>
+      <AdditionalDependencies>..\lib\openjaus-mobility.lib;..\lib\openjaus-environment.lib;..\lib\openjaus-core.lib;..\lib\openjaus.lib;..\lib\json.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -87,6 +88,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\JausTest\Discovery.cpp" />
     <ClCompile Include="..\JausTest\LocalPoseSensorService.cpp" />
     <ClCompile Include="..\JausTest\MyComponent.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
