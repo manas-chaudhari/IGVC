@@ -10,7 +10,7 @@ bool MyComponent::processReportIdentification(core::ReportIdentification &report
 		log("Discovered COP");
 		pingTimer->stop();
 	}
-	return true;
+	return false;
 }
 
 void MyComponent::setupDiscovery()
