@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="..\JausTest\Discovery.cpp" />
     <ClCompile Include="..\JausTest\LocalPoseSensorService.cpp" />
+    <ClCompile Include="..\JausTest\ManagementService.cpp" />
     <ClCompile Include="..\JausTest\MyComponent.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>

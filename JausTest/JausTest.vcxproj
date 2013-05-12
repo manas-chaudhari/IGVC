@@ -90,6 +90,7 @@
     <ClCompile Include="Discovery.cpp" />
     <ClCompile Include="JausTest.cpp" />
     <ClCompile Include="LocalPoseSensorService.cpp" />
+    <ClCompile Include="ManagementService.cpp" />
     <ClCompile Include="MyComponent.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="VelocityStateService.cpp" />

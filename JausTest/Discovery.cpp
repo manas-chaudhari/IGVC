@@ -9,6 +9,9 @@ bool MyComponent::processReportIdentification(core::ReportIdentification &report
 		copDiscovered = true;
 		log("Discovered COP");
 		pingTimer->stop();
+
+		//Todo: check if appropriate
+		initialized();
 	}
 	return false;
 }
